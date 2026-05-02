@@ -1,0 +1,64 @@
+# Backend
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/*.jar
+backend/*.class
+backend/.idea/
+backend/*.iml
+backend/out/
+backend/.DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.vscode/extensions.json
+frontend/.idea/
+frontend/*.suo
+frontend/*.ntvs*
+frontend/*.njsproj
+frontend/*.sln
+frontend/*.sw?
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Docker
+.dockerignore
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+mysql_data/
+
+# Certificates
+*.pem
+*.key
+*.crt
+*.p12
+keystore.*
