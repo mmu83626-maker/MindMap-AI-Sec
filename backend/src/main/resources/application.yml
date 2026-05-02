@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: mindmap-ai-sec
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:mindmap}?useSSL=true&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-timezone: UTC
+
+server:
+  port: ${APP_PORT:8080}
+  servlet:
+    context-path: ${APP_CONTEXT_PATH:/}
+
+app:
+  jwtSecret: ${JWT_SECRET:mindmap-ai-sec-super-secret-key-2026}
+  jwtExpirationMs: ${JWT_EXPIRATION_MS:86400000}
+  openai:
+    api-key: ${OPENAI_API_KEY}
+    model: ${OPENAI_MODEL:gpt-3.5-turbo}
+  rag:
+    cache-enabled: ${RAG_CACHE_ENABLED:true}
+    cache-ttl: ${RAG_CACHE_TTL:3600}
+  encryption:
+    algorithm: AES
+    key-size: 256
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+    com.mindmap: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ${LOG_PATH:/var/log/mindmap}/application.log
