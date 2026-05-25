@@ -12,7 +12,7 @@ public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
-    @Value("${app.jwtSecret:mindmap-ai-sec-super-secret-key-2026}")
+    @Value("${app.jwtSecret:netscope-ai-super-secret-key-2026}")
     private String jwtSecret;
 
     @Value("${app.jwtExpirationMs:86400000}")

@@ -1,1 +1,32 @@
-{"name": "mindmap-ai-sec-frontend","version": "1.0.0","type": "module","scripts": {"dev": "vite","build": "vite build","preview": "vite preview","type-check": "vue-tsc --noEmit"},"dependencies": {"vue": "^3.3.0","vue-router": "^4.2.0","pinia": "^2.1.0","axios": "^1.4.0","element-plus": "^2.4.0","echarts": "^5.4.0","tweetnacl-js": "^1.4.0"},"devDependencies": {"vite": "^4.4.0","@vitejs/plugin-vue": "^4.2.0","typescript": "^5.1.0","vue-tsc": "^1.6.0","@types/node": "^20.0.0"}}
+{
+  "name": "netscope-ai-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "rain:login": "node scripts/rain-classroom-capture.mjs",
+    "rain:login:chrome": "set RAIN_BROWSER_CHANNEL=chrome&& node scripts/rain-classroom-capture.mjs",
+    "rain:login:edge": "set RAIN_BROWSER_CHANNEL=msedge&& node scripts/rain-classroom-capture.mjs",
+    "rain:install-browser": "playwright install chromium"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^4.2.0",
+    "axios": "^1.4.0",
+    "echarts": "^5.4.0",
+    "element-plus": "^2.4.0",
+    "pinia": "^2.1.0",
+    "vue": "^3.3.0",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^4.4.0",
+    "playwright": "^1.56.1",
+    "vue-tsc": "^3.2.7"
+  }
+}
+

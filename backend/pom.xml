@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mindmap</groupId>
-    <artifactId>mindmap-ai-sec</artifactId>
+    <artifactId>netscope-ai</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>MindMap AI-Sec</name>
-    <description>AI-Sec: 科研与学习智能中枢（安全增强版）</description>
+    <name>NetScope AI</name>
+    <description>AI-Sec: 计算机网络安全、网络测量与 Web 应用分析中枢</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -62,6 +62,11 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.33</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- Redis -->
         <dependency>
@@ -94,13 +99,6 @@
             <version>1.70</version>
         </dependency>
 
-        <!-- MFA -->
-        <dependency>
-            <groupId>com.warrenstrange</groupId>
-            <artifactId>google-authenticator</artifactId>
-            <version>1.4</version>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -125,3 +123,4 @@
         </plugins>
     </build>
 </project>
+

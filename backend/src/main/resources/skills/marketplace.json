@@ -1,0 +1,62 @@
+[
+  {
+    "name": "web_security_review",
+    "title": "Web 安全复盘助手",
+    "description": "辅助整理网站安全头、TLS 证书、请求日志、风险点和修复清单。",
+    "triggerWords": ["安全", "威胁", "复盘", "控制措施", "Web", "TLS", "响应头"],
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "assetScope",
+        "label": "资产范围",
+        "type": "text",
+        "placeholder": "例如：官网、API 网关、测试 Web 应用",
+        "required": true,
+        "defaultValue": "",
+        "options": []
+      },
+      {
+        "name": "riskLevel",
+        "label": "风险级别",
+        "type": "select",
+        "placeholder": "",
+        "required": false,
+        "defaultValue": "中",
+        "options": ["低", "中", "高"]
+      }
+    ],
+    "sourceUrl": "",
+    "signature": "",
+    "signatureStatus": "marketplace"
+  },
+  {
+    "name": "network_report_digest",
+    "title": "网络报告摘要助手",
+    "description": "把网络测量、Web 监听、安全体检和对标比较结果整理成简洁报告。",
+    "triggerWords": ["报告", "摘要", "网络测量", "监听", "对标"],
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "paperTopic",
+        "label": "报告主题",
+        "type": "text",
+        "placeholder": "例如：example.com 安全体检和性能测量",
+        "required": true,
+        "defaultValue": "",
+        "options": []
+      },
+      {
+        "name": "outputDepth",
+        "label": "输出深度",
+        "type": "select",
+        "placeholder": "",
+        "required": false,
+        "defaultValue": "行动清单",
+        "options": ["快速摘要", "行动清单", "详细复盘"]
+      }
+    ],
+    "sourceUrl": "",
+    "signature": "",
+    "signatureStatus": "marketplace"
+  }
+]

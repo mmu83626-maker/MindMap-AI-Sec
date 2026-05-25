@@ -1,18 +1,22 @@
 spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:../.env[.properties]
   application:
-    name: mindmap-ai-sec
+    name: netscope-ai
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:mindmap}?useSSL=true&serverTimezone=UTC
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:h2:mem:mindmap;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
@@ -28,11 +32,43 @@ server:
     context-path: ${APP_CONTEXT_PATH:/}
 
 app:
-  jwtSecret: ${JWT_SECRET:mindmap-ai-sec-super-secret-key-2026}
+  jwtSecret: ${JWT_SECRET:netscope-ai-super-secret-key-2026}
   jwtExpirationMs: ${JWT_EXPIRATION_MS:86400000}
   openai:
-    api-key: ${OPENAI_API_KEY}
-    model: ${OPENAI_MODEL:gpt-3.5-turbo}
+    api-key: ${OPENAI_API_KEY:}
+    model: ${OPENAI_MODEL:gpt-4o-mini}
+  llm:
+    default-provider: ${LLM_DEFAULT_PROVIDER:openai}
+    settings-path: ${LLM_SETTINGS_PATH:${user.dir}/data/llm-settings.json}
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1/chat/completions}
+      model: ${OPENAI_MODEL:gpt-4o-mini}
+    kimi:
+      api-key: ${KIMI_API_KEY:}
+      base-url: ${KIMI_BASE_URL:https://api.moonshot.ai/v1/chat/completions}
+      model: ${KIMI_MODEL:moonshot-v1-8k}
+    doubao:
+      api-key: ${DOUBAO_API_KEY:}
+      base-url: ${DOUBAO_BASE_URL:https://ark.cn-beijing.volces.com/api/v3/chat/completions}
+      model: ${DOUBAO_MODEL:}
+  feishu:
+    app-id: ${FEISHU_APP_ID:}
+    app-secret: ${FEISHU_APP_SECRET:}
+    default-chat-id: ${FEISHU_DEFAULT_CHAT_ID:}
+    verification-token: ${FEISHU_VERIFICATION_TOKEN:}
+    encrypt-key: ${FEISHU_ENCRYPT_KEY:}
+    public-base-url: ${FEISHU_PUBLIC_BASE_URL:}
+    user-chat-path: ${FEISHU_USER_CHAT_PATH:${user.dir}/data/feishu-user-chats.json}
+  classroom:
+    rain-classroom-cookie: ${RAIN_CLASSROOM_COOKIE:}
+    rain-cache-path: ${RAIN_CLASSROOM_CACHE_PATH:${user.dir}/data/rain-classroom-assignments.json}
+  assignments:
+    manual-path: ${MANUAL_ASSIGNMENTS_PATH:${user.dir}/data/manual-assignments.json}
+  skills:
+    storage-path: ${SKILL_STORAGE_PATH:${user.dir}/data/skills.json}
+    allowed-hosts: ${SKILL_ALLOWED_HOSTS:localhost,127.0.0.1,raw.githubusercontent.com,github.com,gist.githubusercontent.com}
+    signature-secret: ${SKILL_SIGNATURE_SECRET:}
   rag:
     cache-enabled: ${RAG_CACHE_ENABLED:true}
     cache-ttl: ${RAG_CACHE_TTL:3600}
@@ -49,3 +85,4 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: ${LOG_PATH:/var/log/mindmap}/application.log
+

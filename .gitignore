@@ -33,6 +33,17 @@ frontend/*.sw?
 .env.local
 .env.*.local
 
+# Local tooling/cache
+tools/apache-maven-*/
+tools/*.zip
+tools/*.exe
+tools/.cache/
+
+# Build/release artifacts
+dist/
+release/
+backend/src/main/resources/static/
+
 # IDE
 .vscode/
 .idea/
@@ -55,6 +66,8 @@ Thumbs.db
 *.sqlite
 *.sqlite3
 mysql_data/
+backend/data/
+data/
 
 # Certificates
 *.pem
