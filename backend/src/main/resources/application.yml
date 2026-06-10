@@ -25,11 +25,21 @@ spring:
     serialization:
       write-dates-as-timestamps: false
     default-timezone: UTC
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 3600
+          cache-public: true
 
 server:
   port: ${APP_PORT:8080}
   servlet:
     context-path: ${APP_CONTEXT_PATH:/}
+  compression:
+    enabled: ${SERVER_COMPRESSION_ENABLED:true}
+    min-response-size: 1024
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,image/svg+xml
 
 app:
   jwtSecret: ${JWT_SECRET:netscope-ai-super-secret-key-2026}
@@ -79,7 +89,8 @@ app:
 logging:
   level:
     root: ${LOG_LEVEL:INFO}
-    com.mindmap: DEBUG
+    com.mindmap: ${APP_LOG_LEVEL:INFO}
+    org.springframework: ${SPRING_LOG_LEVEL:WARN}
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
