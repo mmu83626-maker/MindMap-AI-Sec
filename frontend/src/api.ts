@@ -201,10 +201,22 @@ export interface NetworkListenerStatus {
   capabilities: string[]
 }
 
-const DEFAULT_API_BASE =
-  typeof window === 'undefined'
-    ? 'http://localhost:8090'
-    : `${window.location.protocol}//${window.location.hostname}:8090`
+function resolveDefaultApiBase() {
+  if (typeof window === 'undefined') {
+    return 'http://localhost:8090'
+  }
+
+  const hostname = window.location.hostname
+  const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1'
+
+  if (isLocalHost && window.location.port !== '8090') {
+    return `${window.location.protocol}//${hostname}:8090`
+  }
+
+  return window.location.origin
+}
+
+const DEFAULT_API_BASE = resolveDefaultApiBase()
 
 const API_BASE = (import.meta.env.VITE_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '')
 
