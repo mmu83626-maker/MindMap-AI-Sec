@@ -26,6 +26,32 @@ NetScope AI 是一个用于网络安全、网络测量和 Web 应用分析的 AI
 - Node.js 18 或更高版本
 - PowerShell 5+ 或 PowerShell 7+
 
+最简单方式是在项目根目录双击：
+
+```text
+deploy-local.bat
+```
+
+这会自动检查/构建项目，并在本机启动完整网站：
+
+```text
+http://localhost:8090
+```
+
+如果是短期演示，需要给别人公网访问地址，双击：
+
+```text
+deploy-public-demo.bat
+```
+
+它会启动完整本地项目，并通过 Cloudflare Quick Tunnel 输出一个临时 HTTPS 地址，例如：
+
+```text
+https://example.trycloudflare.com
+```
+
+演示期间电脑和终端窗口需要保持运行。Quick Tunnel 地址通常每次启动都会变化。
+
 首次克隆后，在项目根目录执行：
 
 ```powershell
