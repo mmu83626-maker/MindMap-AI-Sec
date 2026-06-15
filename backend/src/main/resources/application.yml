@@ -49,6 +49,7 @@ app:
     model: ${OPENAI_MODEL:gpt-4o-mini}
   llm:
     default-provider: ${LLM_DEFAULT_PROVIDER:openai}
+    demo-fallback-enabled: ${LLM_DEMO_FALLBACK_ENABLED:true}
     settings-path: ${LLM_SETTINGS_PATH:${user.dir}/data/llm-settings.json}
     openai:
       api-key: ${OPENAI_API_KEY:}

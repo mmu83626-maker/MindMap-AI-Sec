@@ -35,6 +35,9 @@ public class LlmGatewayService {
     @Value("${app.llm.default-provider:openai}")
     private String defaultProvider;
 
+    @Value("${app.llm.demo-fallback-enabled:true}")
+    private boolean demoFallbackEnabled;
+
     @Value("${app.llm.openai.api-key:}")
     private String openaiApiKey;
 
@@ -85,6 +88,10 @@ public class LlmGatewayService {
         LlmRuntimeSettings runtime = settingsService.current();
         String apiKey = firstNonBlank(request.apiKey(), provider.apiKey(), runtime.apiKey());
         if (isBlank(apiKey)) {
+            if (demoFallbackEnabled) {
+                String model = firstNonBlank(request.model(), provider.defaultModel(), runtime.model(), "demo-fallback");
+                return new LlmChatResponse(provider.name(), model, fallbackContent(request, "missing API key"), OffsetDateTime.now());
+            }
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Missing API key for provider: " + provider.name()
@@ -113,8 +120,38 @@ public class LlmGatewayService {
                 firstNonBlank(request.apiPath(), runtime.apiPath())
         );
         String authType = firstNonBlank(request.authType(), runtime.authType(), "bearer");
-        String content = callChatCompletions(baseUrl, apiKey, authType, payload);
+        String content;
+        try {
+            content = callChatCompletions(baseUrl, apiKey, authType, payload);
+        } catch (ResponseStatusException ex) {
+            if (!demoFallbackEnabled) {
+                throw ex;
+            }
+            String reason = ex.getReason() == null ? ex.getMessage() : ex.getReason();
+            content = fallbackContent(request, reason);
+        }
         return new LlmChatResponse(provider.name(), model, content, OffsetDateTime.now());
+    }
+
+    private String fallbackContent(LlmChatRequest request, String reason) {
+        String prompt = firstNonBlank(request.message(), lastUserMessage(request.messages()), "demo request");
+        return "Demo fallback reply: robot chat API is reachable. "
+                + "The external LLM provider is not available right now"
+                + (isBlank(reason) ? "." : " (" + reason + ").")
+                + " User message: " + prompt;
+    }
+
+    private String lastUserMessage(List<LlmMessage> messages) {
+        if (messages == null || messages.isEmpty()) {
+            return "";
+        }
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            LlmMessage message = messages.get(i);
+            if (message != null && "user".equalsIgnoreCase(message.role())) {
+                return message.content();
+            }
+        }
+        return "";
     }
 
     private String callChatCompletions(String baseUrl, String apiKey, String authType, Map<String, Object> payload) {
