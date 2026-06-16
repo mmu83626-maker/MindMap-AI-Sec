@@ -57,6 +57,7 @@ backend/src/main/resources/static/
 .DS_Store
 Thumbs.db
 *.log
+logs/
 
 # Docker
 .dockerignore
